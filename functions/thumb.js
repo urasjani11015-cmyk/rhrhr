@@ -1,0 +1,21 @@
+export async function onRequest(context) {
+  // Real Animated GIF ke Binary Bytes (Bina kisi external link ya Base64 string ke)
+  const gifBytes = new Uint8Array([
+    0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01, 0x00, 0x01, 0x00, 0x80, 0x00,
+    0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x21, 0xf9, 0x04, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x2c, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00,
+    0x00, 0x02, 0x02, 0x44, 0x01, 0x00, 0x3b
+  ]);
+
+  return new Response(gifBytes.buffer, {
+    status: 200,
+    headers: {
+      'Content-Type': 'image/gif',
+      'Content-Disposition': 'inline; filename="ththth.gif"',
+      'Content-Length': gifBytes.length.toString(),
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Access-Control-Allow-Origin': '*',
+      'X-Content-Type-Options': 'nosniff'
+    }
+  });
+}
